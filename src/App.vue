@@ -3,6 +3,7 @@ import Header from './components/Header.vue';
 import Balance from './components/Balance.vue';
 import IncomeExpenses from './components/IncomeExpenses.vue';
 import AddTransactions from './components/AddTransactions.vue';
+import TransactionList from './components/TransactionList.vue';
 import {ref, computed} from 'vue'
 
 const transactions = ref([])
@@ -62,7 +63,9 @@ const generateUniqueId = () => {
 <div class="container">
     <Balance :total="total"></Balance>
     <IncomeExpenses :income="income" :expense="expense"></IncomeExpenses>
+    <TransactionList :transactions="transactions" @transactionDeleted="handleTransactionDeleted"></TransactionList>
     <AddTransactions @transactionSubmitted="handleTransactionSubmitted"></AddTransactions>
+
     <!-- {{ transactions }} -->
 </div>
 </template>
