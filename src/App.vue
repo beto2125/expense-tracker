@@ -2,15 +2,18 @@
 import Header from './components/Header.vue';
 import Balance from './components/Balance.vue';
 import IncomeExpenses from './components/IncomeExpenses.vue';
-import {ref, computed} from 'vue' 
+import AddTransactions from './components/AddTransactions.vue';
+import {ref, computed} from 'vue'
 
-const transactions = ref([
-    {id: 1, text: 'Paycheck', amount: 699.99},
-    {id: 2, text: 'Food', amount: -20},
-    {id: 3, text: 'Bills', amount: -200},
-    {id: 4, text: 'Video Game', amount: -54.11},
-    {id: 5, text: 'Tax return', amount: 3000},    
-])
+const transactions = ref([])
+
+// const transactions = ref([
+//     {id: 1, text: 'Paycheck', amount: 699.99},
+//     {id: 2, text: 'Food', amount: -20},
+//     {id: 3, text: 'Bills', amount: -200},
+//     {id: 4, text: 'Video Game', amount: -54.11},
+//     {id: 5, text: 'Tax return', amount: 3000},    
+// ])
 
 //get the total
 const total = computed(() =>{
@@ -36,6 +39,15 @@ const expense = computed( ()=> {
         return acc + transaction.amount
     }, 0)
 })
+
+//hand transaction submitted
+const handleTransactionSubmitted = (transactionData) => {
+    transactions.value.push({
+        text: transactionData.text,
+        amount: transactionData.amount,
+    })
+
+}
 </script>
 
 <template>
@@ -43,5 +55,7 @@ const expense = computed( ()=> {
 <div class="container">
     <Balance :total="total"></Balance>
     <IncomeExpenses :income="income" :expense="expense"></IncomeExpenses>
+    <AddTransactions @transactionSubmitted="handleTransactionSubmitted"></AddTransactions>
+    <!-- {{ transactions }} -->
 </div>
 </template>
